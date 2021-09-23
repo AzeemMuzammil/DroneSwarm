@@ -1,0 +1,47 @@
+[
+    {
+        "taskType": "TAKE_OFF",
+        "taskMode": "VUT",
+        "taskId": 1,
+        "heightInMeters": 2.0
+    },
+    {
+        "taskType": "WAIT",
+        "taskMode": "SEQ",
+        "taskId": 2,
+        "preConditions": [
+            {
+                "preConditionTaskId": 1,
+                "preConditionTaskStatus": "END"
+            }
+        ],
+        "waitTime": 3.0
+    },
+    {
+        "taskType": "GO_TO",
+        "taskMode": "SEQ",
+        "taskId": 3,
+        "preConditions": [
+            {
+                "preConditionTaskId": 2,
+                "preConditionTaskStatus": "END"
+            }
+        ],
+        "currentLocation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 2.0
+        },
+        "nextLocation": {
+            "x": 2.0,
+            "y": 0.0,
+            "z": 2.0
+        }
+    },
+    {
+        "taskType": "LAND",
+        "taskMode": "NUT",
+        "taskId": 4,
+        "heightInMeters": 2.0
+    }
+]
