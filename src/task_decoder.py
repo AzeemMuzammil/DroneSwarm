@@ -70,8 +70,14 @@ class TaskDecoder:
 
         for json_obj in json_data:
             if json_obj['taskType'] == 'TAKE_OFF':
-                task_model = TakeOffTask(
-                    json_obj['taskMode'], json_obj['taskId'], json_obj['heightInMeters'])
+                task_model = TakeOffTask(json_obj['taskMode'], json_obj['taskId'], json_obj['heightInMeters'])
+                task_models.append(task_model)
+            if json_obj['taskType'] == 'LAND':
+                task_model = LandTask(json_obj['taskMode'], json_obj['taskId'])
+                task_models.append(task_model)
+            if json_obj['taskType'] == 'GO_TO':
+                next_loc = json_obj['nextLocation']
+                task_model = GoToTask(json_obj['taskMode'], json_obj['taskId'], next_loc['north'], next_loc['east'], next_loc['alt'])
                 task_models.append(task_model)
 
         json_file.close()
@@ -85,3 +91,20 @@ class TakeOffTask:
         self.mode = mode
         self.task_id = task_id
         self.height = height
+
+
+class GoToTask:
+
+    def __init__(self, mode: str, task_id: int, north: float, east: float, alt: float):
+        self.mode = mode
+        self.task_id = task_id
+        self.north = north
+        self.east = east
+        self.alt = alt
+
+
+class LandTask:
+
+    def __init__(self, mode: str, task_id: int):
+        self.mode = mode
+        self.task_id = task_id
