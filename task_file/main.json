@@ -9,12 +9,6 @@
         "taskType": "GO_TO",
         "taskMode": "SEQ",
         "taskId": 2,
-        "preConditions": [
-            {
-                "preConditionTaskId": 2,
-                "preConditionTaskStatus": "END"
-            }
-        ],
         "nextLocation": {
             "north": 5.0,
             "east": 5.0,
@@ -24,7 +18,7 @@
     {
         "taskType": "GO_TO",
         "taskMode": "SEQ",
-        "taskId": 2,
+        "taskId": 3,
         "preConditions": [
             {
                 "preConditionTaskId": 2,
@@ -40,6 +34,22 @@
     {
         "taskType": "LAND",
         "taskMode": "NUT",
-        "taskId": 3
+        "taskId": 4
+    },
+    {
+        "taskType": "WAIT",
+        "taskMode": "SEQ",
+        "taskId": 5,
+        "waitTime": 10,
+        "preConditions": [
+            {
+                "preConditionTaskId": 2,
+                "preConditionTaskStatus": "END"
+            },
+            {
+                "preConditionTaskId": 3,
+                "preConditionTaskStatus": "END"
+            }
+        ]
     }
 ]
