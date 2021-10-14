@@ -23,7 +23,7 @@
 #         if (position.relative_altitude_m > height * 0.98):
 #             await asyncio.sleep(0.01)
 #             break
-    
+
 #     print(f"-- drone reached the altitude of {height}m --")
 
 # async def goto(drone, north, east, alt):
@@ -54,13 +54,13 @@
 #     for model in models:
 #         if type(model) == TakeOffTask:
 #             await takeoff(drone, model.height)
-        
+
 #         if type(model) == GoToTask:
 #             current_flight_mode = None
 #             async for flight_mode in drone.telemetry.flight_mode():
 #                 current_flight_mode = flight_mode
 #                 break
-            
+
 #             if current_flight_mode != FlightMode.OFFBOARD:
 #                 print("-- setting initial setpoint")
 #                 await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0, 0.0))
@@ -74,9 +74,9 @@
 #                     print("-- Disarming")
 #                     await drone.action.disarm()
 #                     return
-            
+
 #             await goto(drone, model.north, model.east, model.alt)
-        
+
 #         if type(model) == LandTask:
 #             current_flight_mode = None
 #             async for flight_mode in drone.telemetry.flight_mode():
@@ -98,37 +98,48 @@
 #     loop.run_until_complete(run())
 
 
-import watchdog.events
-import watchdog.observers
+# import watchdog.events
+# import watchdog.observers
+# import time
+
+# class Handler(watchdog.events.PatternMatchingEventHandler):
+#     def __init__(self):
+#         # Set the patterns for PatternMatchingEventHandler
+#         watchdog.events.PatternMatchingEventHandler.__init__(self, patterns=['*.json'],
+#                                                              ignore_directories=True, case_sensitive=False)
+
+#     def on_created(self, event):
+#         print("Watchdog received created event - % s." % event.src_path)
+#         # Event is created, you can process it now
+
+#     def on_modified(self, event):
+#         print("Watchdog received modified event - % s." % event.src_path)
+#         # Event is modified, you can process it now
+
+
+# if __name__ == "__main__":
+#     src_path = "src/tasks/"
+#     event_handler = Handler()
+#     observer = watchdog.observers.Observer()
+#     observer.schedule(event_handler, path=src_path, recursive=True)
+#     observer.start()
+#     try:
+#         while True:
+#             time.sleep(1)
+#     except KeyboardInterrupt:
+#         print("Keyboard Interrupt")
+#         observer.stop()
+#     observer.join()
+
+#     # test change
+
+
+from src import Sender
 import time
 
-class Handler(watchdog.events.PatternMatchingEventHandler):
-    def __init__(self):
-        # Set the patterns for PatternMatchingEventHandler
-        watchdog.events.PatternMatchingEventHandler.__init__(self, patterns=['*.json'],
-                                                             ignore_directories=True, case_sensitive=False)
-  
-    def on_created(self, event):
-        print("Watchdog received created event - % s." % event.src_path)
-        # Event is created, you can process it now
-  
-    def on_modified(self, event):
-        print("Watchdog received modified event - % s." % event.src_path)
-        # Event is modified, you can process it now
-  
-  
-if __name__ == "__main__":
-    src_path = "src/tasks/"
-    event_handler = Handler()
-    observer = watchdog.observers.Observer()
-    observer.schedule(event_handler, path=src_path, recursive=True)
-    observer.start()
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        print("Keyboard Interrupt")
-        observer.stop()
-    observer.join()
+comm = Sender(6000)
+comm.connect()
+comm.send_data("hi")
 
-    # test change
+time.sleep(2)
+comm.send_data("hi2")
