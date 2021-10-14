@@ -71,8 +71,11 @@ class TaskPlanner:
         task_data.append(new_task)
         return self.order_task(self, task_data)
 
-    # def remove_task(self, task_data: list, remove_task):
-    #     for task in task_data:
-    #         if task.pre_conditions is not None:
-    #             for pre_condition in task.pre_conditions:
-                    
+    def remove_task(self, task_data: list, remove_task):
+        for task in task_data:
+            if task.pre_conditions is not None:
+                for pre_condition in task.pre_conditions:
+                    if pre_condition.task_id == remove_task.task_id:
+                        self.remove_task(self, task_data, task)
+
+        task_data.remove(remove_task)

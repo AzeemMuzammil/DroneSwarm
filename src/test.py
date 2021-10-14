@@ -50,11 +50,11 @@ lst = td.get_tasks(td, json_data)
 
 out = TaskPlanner.order_task(TaskPlanner, lst)
 
-newTask = GoToTask("SEQ", 6, 10, 10, 10, [PreCondition(3, "END")])
+# newTask = GoToTask("SEQ", 6, 10, 10, 10, [PreCondition(3, "END")])
 
-inserted = TaskPlanner.insert_task(TaskPlanner, out, newTask)
+# inserted = TaskPlanner.insert_task(TaskPlanner, out, newTask)
 
-# removed = TaskPlanner.remove_task(TaskPlanner, out, out[0])
+removed = TaskPlanner.remove_task(TaskPlanner, out, out[1])
 
-for i in inserted:
+for i in out:
     print(i.task_id)
