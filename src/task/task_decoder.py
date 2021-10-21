@@ -1,7 +1,7 @@
 from enum import Enum
 
-from task.tasks import TakeOffTask, GoToTask, WaitTask, LandTask, PreCondition
-from utils import Constants
+from .tasks import TakeOffTask, GoToTask, WaitTask, LandTask, PreCondition
+from src.utils.constants import Constants
 
 
 class TaskType(Enum):

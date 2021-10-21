@@ -1,1 +1,1 @@
-from utils.constants import *
+from .constants import *

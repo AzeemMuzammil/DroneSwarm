@@ -1,7 +1,7 @@
-from task.sync_tasks import SyncTakeOffTask, SyncGoToTask, SyncWaitTask, SyncLandTask
-from task.tasks import PreCondition
-from task.task_decoder import TaskType
-from utils import Constants
+from .sync_tasks import SyncTakeOffTask, SyncGoToTask, SyncWaitTask, SyncLandTask
+from .tasks import PreCondition
+from .task_decoder import TaskType
+from src.utils.constants import Constants
 
 
 class SyncTaskDecoder:

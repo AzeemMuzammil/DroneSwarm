@@ -1,6 +1,6 @@
 from os import remove
-from task.tasks import *
-from task.task_decoder import *
+from .tasks import *
+from .task_decoder import *
 
 from random import randint
 
