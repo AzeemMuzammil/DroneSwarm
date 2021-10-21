@@ -35,31 +35,38 @@
 #     },
 #     '''
 
-from task import GoToTask, TaskPlanner, PreCondition
-from task import TaskDecoder as td
-import json
-from communication import Receiver
+# from task import GoToTask, TaskPlanner, PreCondition
+# from task import TaskDecoder as td
+# import json
+# from communication import Receiver
 
-# json_file = open('task_file/main.json', "r")
+# # json_file = open('task_file/main.json', "r")
 
-# json_data = json.loads(json_file.read())
+# # json_data = json.loads(json_file.read())
 
-# lst = td.get_tasks(td, json_data)
+# # lst = td.get_tasks(td, json_data)
 
-# for i in lst:
-#     print(i.task_id)
+# # for i in lst:
+# #     print(i.task_id)
 
-# out = TaskPlanner.order_task(TaskPlanner, lst)
+# # out = TaskPlanner.order_task(TaskPlanner, lst)
 
-# # newTask = GoToTask("SEQ", 6, 10, 10, 10, [PreCondition(3, "END")])
+# # # newTask = GoToTask("SEQ", 6, 10, 10, 10, [PreCondition(3, "END")])
 
-# # inserted = TaskPlanner.insert_task(TaskPlanner, out, newTask)
+# # # inserted = TaskPlanner.insert_task(TaskPlanner, out, newTask)
 
-# removed = TaskPlanner.remove_task(TaskPlanner, out, out[1])
+# # removed = TaskPlanner.remove_task(TaskPlanner, out, out[1])
 
-# for i in out:
-#     print(i.task_id)
+# # for i in out:
+# #     print(i.task_id)
 
-comm = Receiver(6000)
-comm.connect()
-comm.receive_data()
+# comm = Receiver(6000)
+# comm.connect()
+# comm.receive_data()
+
+
+# import asyncio
+
+
+# async def get_range():
+#     for i in
