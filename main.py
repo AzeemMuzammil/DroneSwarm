@@ -48,6 +48,8 @@ async def goto(drone, north, east, alt):
         if ((position.north_m > north - 0.1) and (position.north_m < north + 0.1)) and ((position.east_m > east - 0.1) and (position.east_m < east + 0.1)) and ((position.down_m < -alt + 0.1) and (position.down_m > -alt - 0.1) ):
             break
     
+    # await asyncio.sleep(5)
+
     # async for position_velocity in drone.telemetry.position_velocity_ned():
     #     print(position_velocity.position)
     #     break
