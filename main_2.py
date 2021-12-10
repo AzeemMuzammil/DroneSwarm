@@ -5,12 +5,11 @@ from mavsdk import System
 from mavsdk.offboard import (OffboardError, VelocityNedYaw, PositionNedYaw)
 from mavsdk.telemetry import Position, FlightMode, PositionNed
 from src.task import TaskDecoder, TaskType, TakeOffTask, GoToTask, LandTask
-from mavsdk.param import Param, IntParam
-from mavsdk import async_plugin_manager
+
 import json
 
 from src.task.tasks import WaitTask
-json_file = open('task_file/main.json', "r")
+json_file = open('task_file/main_2.json', "r")
 json_data = json.loads(json_file.read())
 
 
@@ -78,13 +77,11 @@ async def land(drone):
 
 async def run():
 
-    # a = Param(async_plugin_manager())
-    # IntParam("NAV_RCL_ACT", 0)
-
-    drone = System(mavsdk_server_address="localhost", port=50040)
-    await drone.connect()
     # drone = System()
-    # await drone.connect(system_address="udp://:14540")
+    # await drone.connect(system_address="udp://:14542")
+
+    drone = System(mavsdk_server_address="localhost", port=50042)
+    await drone.connect()
 
     await drone.param.set_param_int("NAV_RCL_ACT", 0)
 
