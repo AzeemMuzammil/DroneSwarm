@@ -86,7 +86,7 @@ async def run():
     # drone = System()
     # await drone.connect(system_address="udp://:14540")
 
-    await drone.param.set_param_int("NAV_RCL_ACT", 0)
+    # await drone.param.set_param_int("NAV_RCL_ACT", 0)
 
     print("Waiting for drone to connect...")
     async for state in drone.core.connection_state():

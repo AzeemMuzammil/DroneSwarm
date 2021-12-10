@@ -83,7 +83,7 @@ async def run():
     drone = System(mavsdk_server_address="localhost", port=50041)
     await drone.connect()
 
-    await drone.param.set_param_int("NAV_RCL_ACT", 0)
+    # await drone.param.set_param_int("NAV_RCL_ACT", 0)
 
     print("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
