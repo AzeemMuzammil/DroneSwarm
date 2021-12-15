@@ -1,6 +1,7 @@
 from enum import Enum
 
 from .tasks import TakeOffTask, GoToTask, WaitTask, LandTask, PreCondition
+from .sync_tasks import SyncWaitTask
 from src.utils.constants import Constants
 
 
@@ -142,6 +143,20 @@ class TaskDecoder:
 
                 task_model = LandTask(
                     json_obj[Constants.TASK_MODE], json_obj[Constants.TASK_ID], pre_conditions_lst)
+                task_models.append(task_model)
+            
+            if json_obj[Constants.TASK_TYPE] == TaskType.translate_to_string(TaskType.SYNC_WAIT):
+                pre_conditions = json_obj[Constants.PRE_CONDITIONS] if Constants.PRE_CONDITIONS in json_obj else None
+                pre_conditions_lst = None
+                if pre_conditions is not None:
+                    pre_conditions_lst = []
+                    for condition in pre_conditions:
+                        pre_condition = PreCondition(
+                            condition[Constants.PRE_CONDITION_TASK_ID], condition[Constants.PRE_CONDITION_TASK_STATUS])
+                        pre_conditions_lst.append(pre_condition)
+
+                task_model = SyncWaitTask(
+                    json_obj[Constants.TASK_MODE], json_obj[Constants.TASK_ID], json_obj[Constants.WAIT_TIME], pre_conditions_lst)
                 task_models.append(task_model)
 
         return task_models

@@ -26,13 +26,11 @@ class SyncGoToTask:
 
 class SyncWaitTask:
 
-    def __init__(self, mode: str, task_id: int, wait_time: int, pre_conditions: list, senders: list, receivers: list):
+    def __init__(self, mode: str, task_id: int, wait_time: int, pre_conditions: list):
         self.mode = mode
         self.task_id = task_id
         self.wait_time = wait_time
         self.pre_conditions = pre_conditions
-        self.senders = senders
-        self.receivers = receivers
 
 
 class SyncLandTask:
