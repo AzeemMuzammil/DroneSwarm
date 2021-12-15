@@ -82,7 +82,7 @@ async def sync_wait(drone, time):
     await asyncio.sleep(time)
 
     f = open("task_file/sync_file.txt", "a")
-    f.write('d-1 ')
+    f.write('d-2 ')
     f.close()
 
     while True:
@@ -163,6 +163,8 @@ async def run():
         
         if type(model) == WaitTask:
             await wait(drone, model.wait_time)
+        if type(model) == SyncWaitTask:
+            await sync_wait(drone, model.wait_time)
         
 
 if __name__ == "__main__":

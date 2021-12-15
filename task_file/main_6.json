@@ -22,6 +22,22 @@
         "waitTime": 5
     },
     {
+        "taskType": "GO_TO",
+        "taskMode": "SEQ",
+        "taskId": 2,
+        "nextLocation": {
+            "north": -3.0,
+            "east": 0.0,
+            "alt": 4.5
+        }
+    },
+    {
+        "taskType": "WAIT",
+        "taskMode": "SEQ",
+        "taskId": 5,
+        "waitTime": 10
+    },
+    {
         "taskType": "LAND",
         "taskMode": "NUT",
         "taskId": 4

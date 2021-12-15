@@ -91,8 +91,12 @@ async def sync_wait(drone, time):
         f.close()
         if len(op.split(" ")) == 7:
             break
+        #await drone.offboard.set_position_ned(PositionNedYaw(current_position.north_m, current_position.east_m, current_position.down_m, 0))
         await asyncio.sleep(0.01)
+    # f = open("task_file/sync_file.txt", "w").close()
+
     print(f"-- drone waited for ({time})--")
+
 
 async def land(drone):
     print("-- drone is landing")
