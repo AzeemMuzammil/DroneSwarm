@@ -30,7 +30,7 @@ def get_location_offset_meters(original_location, dNorth, dEast, alt):
     return Position(new_lat, new_lon, new_alt, new_relative_alt)
 
 async def takeoff(drone, height):
-    await drone.action.set_takeoff_altitude(height + 1)
+    await drone.action.set_takeoff_altitude(height)
 
     print("-- drone is taking off --")
     await drone.action.takeoff()
@@ -89,8 +89,10 @@ async def sync_wait(drone, time):
         f = open("task_file/sync_file.txt", "r")
         op = f.read()
         f.close()
-        if len(op.split(" ")) == 2:
+        if len(op.split(" ")) == 3:
             break
+        await drone.offboard.set_position_ned(PositionNedYaw(current_position.north_m, current_position.east_m, current_position.down_m, 0))
+
         await asyncio.sleep(0.01)
     print(f"-- drone waited for ({time})--")
 
