@@ -16,10 +16,10 @@
         }
     },
     {
-        "taskType": "WAIT",
+        "taskType": "SYNC_WAIT",
         "taskMode": "SEQ",
         "taskId": 5,
-        "waitTime": 20
+        "waitTime": 5
     },
     {
         "taskType": "LAND",

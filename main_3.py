@@ -5,6 +5,7 @@ from mavsdk import System
 from mavsdk.offboard import (OffboardError, VelocityNedYaw, PositionNedYaw)
 from mavsdk.telemetry import Position, FlightMode, PositionNed
 from src.task import TaskDecoder, TaskType, TakeOffTask, GoToTask, LandTask
+from src.task import SyncWaitTask
 
 import json
 
@@ -29,7 +30,7 @@ def get_location_offset_meters(original_location, dNorth, dEast, alt):
     return Position(new_lat, new_lon, new_alt, new_relative_alt)
 
 async def takeoff(drone, height):
-    await drone.action.set_takeoff_altitude(height + 1)
+    await drone.action.set_takeoff_altitude(height)
 
     print("-- drone is taking off --")
     await drone.action.takeoff()
@@ -67,6 +68,30 @@ async def wait(drone, time):
 
     await drone.offboard.set_position_ned(PositionNedYaw(current_position.north_m, current_position.east_m, current_position.down_m, 0))
     await asyncio.sleep(time)
+    print(f"-- drone waited for ({time})--")
+
+async def sync_wait(drone, time):
+    print(f"-- drone is waiting for ({time})--")
+    current_position = None
+
+    async for position_velocity in drone.telemetry.position_velocity_ned():
+        current_position = position_velocity.position
+        break
+
+    await drone.offboard.set_position_ned(PositionNedYaw(current_position.north_m, current_position.east_m, current_position.down_m, 0))
+    await asyncio.sleep(time)
+
+    f = open("task_file/sync_file.txt", "a")
+    f.write('d-1 ')
+    f.close()
+
+    while True:
+        f = open("task_file/sync_file.txt", "r")
+        op = f.read()
+        f.close()
+        if len(op.split(" ")) == 7:
+            break
+        await asyncio.sleep(0.01)
     print(f"-- drone waited for ({time})--")
 
 async def land(drone):
