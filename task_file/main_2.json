@@ -3,18 +3,9 @@
         "taskType": "TAKE_OFF",
         "taskMode": "VUT",
         "taskId": 1,
-        "heightInMeters": 3
+        "heightInMeters": 6
     },
-    {
-        "taskType": "GO_TO",
-        "taskMode": "SEQ",
-        "taskId": 2,
-        "nextLocation": {
-            "north": 2.0,
-            "east": 0.0,
-            "alt": 3.0
-        }
-    },
+    
     {
         "taskType": "WAIT",
         "taskMode": "SEQ",

@@ -6,6 +6,16 @@
         "heightInMeters": 3
     },
     {
+        "taskType": "GO_TO",
+        "taskMode": "SEQ",
+        "taskId": 2,
+        "nextLocation": {
+            "north": -3.0,
+            "east": 0.0,
+            "alt": 9.0
+        }
+    },
+    {
         "taskType": "WAIT",
         "taskMode": "SEQ",
         "taskId": 5,
