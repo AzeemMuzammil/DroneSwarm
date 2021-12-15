@@ -5,12 +5,11 @@ from mavsdk import System
 from mavsdk.offboard import (OffboardError, VelocityNedYaw, PositionNedYaw)
 from mavsdk.telemetry import Position, FlightMode, PositionNed
 from src.task import TaskDecoder, TaskType, TakeOffTask, GoToTask, LandTask
-from mavsdk.param import Param, IntParam
-from mavsdk import async_plugin_manager
+
 import json
 
 from src.task.tasks import WaitTask
-json_file = open('task_file/main.json', "r")
+json_file = open('task_file/main_3.json', "r")
 json_data = json.loads(json_file.read())
 
 
@@ -78,15 +77,13 @@ async def land(drone):
 
 async def run():
 
-    # a = Param(async_plugin_manager())
-    # IntParam("NAV_RCL_ACT", 0)
-
-    drone = System(mavsdk_server_address="localhost", port=50040)
-    await drone.connect()
     # drone = System()
-    # await drone.connect(system_address="udp://:14540")
+    # await drone.connect(system_address="udp://:14542")
 
-    # await drone.param.set_param_int("NAV_RCL_ACT", 0)
+    drone = System(mavsdk_server_address="localhost", port=50042)
+    await drone.connect()
+
+    await drone.param.set_param_int("NAV_RCL_ACT", 0)
 
     print("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
@@ -146,50 +143,3 @@ async def run():
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run())
-
-
-# import watchdog.events
-# import watchdog.observers
-# import time
-
-# class Handler(watchdog.events.PatternMatchingEventHandler):
-#     def __init__(self):
-#         # Set the patterns for PatternMatchingEventHandler
-#         watchdog.events.PatternMatchingEventHandler.__init__(self, patterns=['*.json'],
-#                                                              ignore_directories=True, case_sensitive=False)
-
-#     def on_created(self, event):
-#         print("Watchdog received created event - % s." % event.src_path)
-#         # Event is created, you can process it now
-
-#     def on_modified(self, event):
-#         print("Watchdog received modified event - % s." % event.src_path)
-#         # Event is modified, you can process it now
-
-
-# if __name__ == "__main__":
-#     src_path = "src/tasks/"
-#     event_handler = Handler()
-#     observer = watchdog.observers.Observer()
-#     observer.schedule(event_handler, path=src_path, recursive=True)
-#     observer.start()
-#     try:
-#         while True:
-#             time.sleep(1)
-#     except KeyboardInterrupt:
-#         print("Keyboard Interrupt")
-#         observer.stop()
-#     observer.join()
-
-#     # test change
-
-
-# from src import Sender
-# import time
-
-# comm = Sender(6000)
-# comm.connect()
-# comm.send_data("hi")
-
-# time.sleep(2)
-# comm.send_data("hi2")

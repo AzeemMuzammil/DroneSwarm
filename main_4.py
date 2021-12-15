@@ -9,7 +9,7 @@ from src.task import TaskDecoder, TaskType, TakeOffTask, GoToTask, LandTask
 import json
 
 from src.task.tasks import WaitTask
-json_file = open('task_file/main_2.json', "r")
+json_file = open('task_file/main_4.json', "r")
 json_data = json.loads(json_file.read())
 
 
@@ -78,9 +78,9 @@ async def land(drone):
 async def run():
 
     # drone = System()
-    # await drone.connect(system_address="udp://:14541")
+    # await drone.connect(system_address="udp://:14542")
 
-    drone = System(mavsdk_server_address="localhost", port=50041)
+    drone = System(mavsdk_server_address="localhost", port=50043)
     await drone.connect()
 
     await drone.param.set_param_int("NAV_RCL_ACT", 0)
