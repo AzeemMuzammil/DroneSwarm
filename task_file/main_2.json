@@ -1,1 +1,1 @@
-[{"taskType": "TAKE_OFF", "taskMode": "VUT", "taskId": 0, "heightInMeters": 4}, [{"taskType": "GO_TO", "taskMode": "SEQ", "taskId": 0, "nextLocation": {"north": 3, "east": 0.0, "alt": 6}}], {"taskType": "LAND", "taskMode": "NUT", "taskId": 0}]
+[{"taskType": "TAKE_OFF", "taskMode": "VUT", "taskId": 1, "heightInMeters": 5}, {"taskType": "GO_TO", "taskMode": "SEQ", "taskId": 2, "nextLocation": {"north": 3, "east": 0.0, "alt": 6}}, {"taskType": "WAIT", "taskMode": "SEQ", "taskId": 3, "waitTime": 5}, {"taskType": "LAND", "taskMode": "NUT", "taskId": 4}]

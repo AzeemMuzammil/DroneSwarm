@@ -72,10 +72,10 @@ q.join()
 #             with open(json_name, "r") as file:
 #                 data = json.load(file)
 #                 task_id = 0
-#                 # if len(data) == 0:
-#                 #     task_id = 1
-#                 # else:
-#                 #     task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                 if len(data) == 0:
+#                     task_id = 1
+#                 else:
+#                     task_id = int(data[len(data) - 1]["taskId"]) + 1
 #                 entry = {
 #                     "taskType": "TAKE_OFF",
 #                     "taskMode": "VUT",
@@ -94,10 +94,10 @@ q.join()
 #             with open(json_name, "r") as file:
 #                 data = json.load(file)
 #                 task_id = 0
-#                 # if len(data) == 0:
-#                 #     task_id = 1
-#                 # else:
-#                 #     task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                 if len(data) == 0:
+#                     task_id = 1
+#                 else:
+#                     task_id = int(data[len(data) - 1]["taskId"]) + 1
 #                 entry = {
 #                     "taskType": "WAIT",
 #                     "taskMode": "SEQ",
@@ -164,20 +164,21 @@ q.join()
 #                 with open(json_name, "r") as file:
 #                     data = json.load(file)
 #                     task_id = 0
-#                     # if len(data) == 0:
-#                     #     task_id = 1
-#                     # else:
-#                     #     task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                     if len(data) == 0:
+#                         task_id = 1
+#                     else:
+#                         task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                     next_loc = {
+#                         "north": dist_drone_pos[i - 1][0],
+#                         "east": 0.0,
+#                         "alt": dist_drone_pos[i - 1][1]
+#                     }
 #                     entry = {
 #                         "taskType": "GO_TO",
 #                         "taskMode": "SEQ",
 #                         "taskId": task_id,
-#                         "nextLocation": {
-#                             "north": dist_drone_pos[i - 1][0],
-#                             "east": 0.0,
-#                             "alt": dist_drone_pos[i - 1][1]
-#                         }
-#                     },
+#                         "nextLocation": next_loc
+#                     }
 #                     data.append(entry)
 
 #                 with open(json_name, "w") as file:
@@ -190,10 +191,10 @@ q.join()
 #             with open(json_name, "r") as file:
 #                 data = json.load(file)
 #                 task_id = 0
-#                 # if len(data) == 0:
-#                 #     task_id = 1
-#                 # else:
-#                 #     task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                 if len(data) == 0:
+#                     task_id = 1
+#                 else:
+#                     task_id = int(data[len(data) - 1]["taskId"]) + 1
 #                 entry = {
 #                     "taskType": "LAND",
 #                     "taskMode": "NUT",
