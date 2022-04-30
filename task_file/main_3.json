@@ -1,13 +1,1 @@
-[
-    {
-        "taskType": "TAKE_OFF",
-        "taskMode": "VUT",
-        "taskId": 1,
-        "heightInMeters": 3
-    },
-    {
-        "taskType": "LAND",
-        "taskMode": "NUT",
-        "taskId": 4
-    }
-]
+[]
