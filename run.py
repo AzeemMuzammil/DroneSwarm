@@ -1,12 +1,9 @@
 from email.policy import default
-import json
 import os
 from multiprocessing import Process, Queue
 import threading
 import subprocess
 from unittest import case
-from src.utils import ConvexHull
-from math import sqrt
 # os.system('python3 main.py')
 # os.system('python3 main_1.py')
 # os.system('python3 main_2.py')
