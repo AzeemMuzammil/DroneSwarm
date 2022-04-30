@@ -140,6 +140,7 @@ async def run():
             if model.task_id in completed_ids:
                 pass
             else:
+                completed_ids.append(model.task_id)
                 if type(model) == TakeOffTask:
                     await takeoff(drone, model.height)
 
