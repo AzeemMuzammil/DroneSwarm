@@ -57,9 +57,11 @@ q.join()
 # no_of_drones = input("Enter the number of Drones: ")
 
 # drone_current_positions = []
+# drone_initial_positions = []
 
 # for i in range(0, int(no_of_drones)):
 #     drone_current_positions.append(tuple([i * 3, 0]))
+#     drone_initial_positions.append(tuple([i * 3, 0]))
 
 
 # while True:
@@ -86,6 +88,9 @@ q.join()
 
 #             with open(json_name, "w") as file:
 #                 json.dump(data, file)
+
+#             drone_current_positions[i - 1] = tuple([drone_current_positions[i - 1][0],
+#                                                     drone_current_positions[i - 1][1] + int(command_string.split(" ")[1])])
 
 #     elif (command_string.split(" ")[0]) == "wait":
 #         for i in range(1, int(no_of_drones) + 1):
@@ -169,7 +174,7 @@ q.join()
 #                     else:
 #                         task_id = int(data[len(data) - 1]["taskId"]) + 1
 #                     next_loc = {
-#                         "north": dist_drone_pos[i - 1][0],
+#                         "north": dist_drone_pos[i - 1][0] - drone_initial_positions[i - 1][0],
 #                         "east": 0.0,
 #                         "alt": dist_drone_pos[i - 1][1]
 #                     }
@@ -183,6 +188,9 @@ q.join()
 
 #                 with open(json_name, "w") as file:
 #                     json.dump(data, file)
+
+#                 drone_current_positions[i - 1] = tuple([dist_drone_pos[i - 1][0],
+#                                                         dist_drone_pos[i - 1][1]])
 
 #     elif (command_string.split(" ")[0]) == "land":
 #         for i in range(1, int(no_of_drones) + 1):

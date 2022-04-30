@@ -12,22 +12,26 @@ import json
 from src.task.tasks import WaitTask
 json_file = open('task_file/main_4.json', "r")
 json_data = json.loads(json_file.read())
+json_file.close()
 
 
 models = TaskDecoder().get_tasks(json_data)
 
-def get_location_offset_meters(original_location, dNorth, dEast, alt):
-    earth_radius = 6378137.0 #Radius of "spherical" earth
-    #Coordinate offsets in radians
-    dLat = dNorth / earth_radius
-    dLon = dEast / (earth_radius *math.cos(math.pi * original_location.latitude_deg / 180))
 
-    #New position in decimal degrees
+def get_location_offset_meters(original_location, dNorth, dEast, alt):
+    earth_radius = 6378137.0  # Radius of "spherical" earth
+    # Coordinate offsets in radians
+    dLat = dNorth / earth_radius
+    dLon = dEast / (earth_radius * math.cos(math.pi *
+                                            original_location.latitude_deg / 180))
+
+    # New position in decimal degrees
     new_lat = original_location.latitude_deg + (dLat * 180 / math.pi)
     new_lon = original_location.longitude_deg + (dLon * 180 / math.pi)
     new_alt = original_location.absolute_altitude_m + alt
     new_relative_alt = original_location.relative_altitude_m + alt
     return Position(new_lat, new_lon, new_alt, new_relative_alt)
+
 
 async def takeoff(drone, height):
     await drone.action.set_takeoff_altitude(height)
@@ -41,22 +45,24 @@ async def takeoff(drone, height):
 
     print(f"-- drone reached the altitude of {height}m --")
 
+
 async def goto(drone, north, east, alt):
     print(f"-- drone is moving to ({north}, {east}, {alt})--")
     await drone.offboard.set_position_ned(PositionNedYaw(north, east, -alt, 0))
 
     async for position_velocity in drone.telemetry.position_velocity_ned():
         position = position_velocity.position
-        if ((position.north_m > north - 0.1) and (position.north_m < north + 0.1)) and ((position.east_m > east - 0.1) and (position.east_m < east + 0.1)) and ((position.down_m < -alt + 0.1) and (position.down_m > -alt - 0.1) ):
+        if ((position.north_m > north - 0.1) and (position.north_m < north + 0.1)) and ((position.east_m > east - 0.1) and (position.east_m < east + 0.1)) and ((position.down_m < -alt + 0.1) and (position.down_m > -alt - 0.1)):
             break
-    
+
     # await asyncio.sleep(5)
 
     # async for position_velocity in drone.telemetry.position_velocity_ned():
     #     print(position_velocity.position)
     #     break
-    
+
     print(f"-- drone reached the position ({north}, {east}, {alt})--")
+
 
 async def wait(drone, time):
     print(f"-- drone is waiting for ({time})--")
@@ -69,6 +75,7 @@ async def wait(drone, time):
     await drone.offboard.set_position_ned(PositionNedYaw(current_position.north_m, current_position.east_m, current_position.down_m, 0))
     await asyncio.sleep(time)
     print(f"-- drone waited for ({time})--")
+
 
 async def sync_wait(drone, time):
     print(f"-- drone is waiting for ({time})--")
@@ -93,6 +100,7 @@ async def sync_wait(drone, time):
             break
         await asyncio.sleep(0.01)
     print(f"-- drone waited for ({time})--")
+
 
 async def land(drone):
     print("-- drone is landing")
@@ -160,7 +168,7 @@ async def run():
                         {error._result.result}")
 
             await land(drone)
-        
+
         if type(model) == WaitTask:
             await wait(drone, model.wait_time)
         if type(model) == SyncWaitTask:
