@@ -72,10 +72,10 @@ q.join()
 #             with open(json_name, "r") as file:
 #                 data = json.load(file)
 #                 task_id = 0
-#                 if len(data) == 0:
-#                     task_id = 1
-#                 else:
-#                     task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                 # if len(data) == 0:
+#                 #     task_id = 1
+#                 # else:
+#                 #     task_id = int(data[len(data) - 1]["taskId"]) + 1
 #                 entry = {
 #                     "taskType": "TAKE_OFF",
 #                     "taskMode": "VUT",
@@ -87,21 +87,22 @@ q.join()
 #             with open(json_name, "w") as file:
 #                 json.dump(data, file)
 
-#     elif (command_string.split(" ")[0]) == "land":
+#     elif (command_string.split(" ")[0]) == "wait":
 #         for i in range(1, int(no_of_drones) + 1):
 #             json_name = f"task_file/main_{i}.json"
 
 #             with open(json_name, "r") as file:
 #                 data = json.load(file)
 #                 task_id = 0
-#                 if len(data) == 0:
-#                     task_id = 1
-#                 else:
-#                     task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                 # if len(data) == 0:
+#                 #     task_id = 1
+#                 # else:
+#                 #     task_id = int(data[len(data) - 1]["taskId"]) + 1
 #                 entry = {
-#                     "taskType": "LAND",
-#                     "taskMode": "NUT",
-#                     "taskId": task_id
+#                     "taskType": "WAIT",
+#                     "taskMode": "SEQ",
+#                     "taskId": task_id,
+#                     "waitTime": int(command_string.split(" ")[1])
 #                 }
 #                 data.append(entry)
 
@@ -156,3 +157,49 @@ q.join()
 #                 del dist_from_each_drones[min_key]
 
 #             print(dist_drone_pos)
+
+#             for i in range(1, int(no_of_drones) + 1):
+#                 json_name = f"task_file/main_{i}.json"
+
+#                 with open(json_name, "r") as file:
+#                     data = json.load(file)
+#                     task_id = 0
+#                     # if len(data) == 0:
+#                     #     task_id = 1
+#                     # else:
+#                     #     task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                     entry = {
+#                         "taskType": "GO_TO",
+#                         "taskMode": "SEQ",
+#                         "taskId": task_id,
+#                         "nextLocation": {
+#                             "north": dist_drone_pos[i - 1][0],
+#                             "east": 0.0,
+#                             "alt": dist_drone_pos[i - 1][1]
+#                         }
+#                     },
+#                     data.append(entry)
+
+#                 with open(json_name, "w") as file:
+#                     json.dump(data, file)
+
+#     elif (command_string.split(" ")[0]) == "land":
+#         for i in range(1, int(no_of_drones) + 1):
+#             json_name = f"task_file/main_{i}.json"
+
+#             with open(json_name, "r") as file:
+#                 data = json.load(file)
+#                 task_id = 0
+#                 # if len(data) == 0:
+#                 #     task_id = 1
+#                 # else:
+#                 #     task_id = int(data[len(data) - 1]["taskId"]) + 1
+#                 entry = {
+#                     "taskType": "LAND",
+#                     "taskMode": "NUT",
+#                     "taskId": task_id
+#                 }
+#                 data.append(entry)
+
+#             with open(json_name, "w") as file:
+#                 json.dump(data, file)
