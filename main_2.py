@@ -96,7 +96,7 @@ async def sync_wait(drone, time):
         f = open("task_file/sync_file.txt", "r")
         op = f.read()
         f.close()
-        if len(op.split(" ")) == 7:
+        if len(op.split(" ")) == 5:
             break
         await asyncio.sleep(0.01)
     print(f"-- drone waited for ({time})--")
