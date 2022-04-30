@@ -131,3 +131,6 @@ dmypy.json
 # VS Code
 .metals/
 .vscode/
+
+.DS_Store
+src/.DS_Store
