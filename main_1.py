@@ -15,7 +15,7 @@ json_data = json.loads(json_file.read())
 json_file.close()
 
 
-models = TaskDecoder().get_tasks(json_data)
+models = None
 
 
 def get_location_offset_meters(original_location, dNorth, dEast, alt):
@@ -132,53 +132,60 @@ async def run():
     print("-- Arming")
     await drone.action.arm()
 
-    for model in models:
-        if type(model) == TakeOffTask:
-            await takeoff(drone, model.height)
+    completed_ids = []
 
-        if type(model) == GoToTask:
-            current_flight_mode = None
-            async for flight_mode in drone.telemetry.flight_mode():
-                current_flight_mode = flight_mode
-                break
+    while True:
+        models = TaskDecoder().get_tasks(json_data)
+        for model in models:
+            if model.task_id in completed_ids:
+                pass
+            else:
+                if type(model) == TakeOffTask:
+                    await takeoff(drone, model.height)
 
-            if current_flight_mode != FlightMode.OFFBOARD:
-                print("-- setting initial setpoint")
-                await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0, 0.0))
+                if type(model) == GoToTask:
+                    current_flight_mode = None
+                    async for flight_mode in drone.telemetry.flight_mode():
+                        current_flight_mode = flight_mode
+                        break
 
-                print("-- Starting offboard")
-                try:
-                    await drone.offboard.start()
-                except OffboardError as error:
-                    print(f"Starting offboard mode failed with error code: \
-                        {error._result.result}")
-                    print("-- Disarming")
-                    await drone.action.disarm()
-                    return
+                    if current_flight_mode != FlightMode.OFFBOARD:
+                        print("-- setting initial setpoint")
+                        await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0, 0.0))
 
-            await goto(drone, model.north, model.east, model.alt)
+                        print("-- Starting offboard")
+                        try:
+                            await drone.offboard.start()
+                        except OffboardError as error:
+                            print(f"Starting offboard mode failed with error code: \
+                                {error._result.result}")
+                            print("-- Disarming")
+                            await drone.action.disarm()
+                            return
 
-        if type(model) == LandTask:
-            current_flight_mode = None
-            async for flight_mode in drone.telemetry.flight_mode():
-                current_flight_mode = flight_mode
-                break
+                    await goto(drone, model.north, model.east, model.alt)
 
-            if current_flight_mode != FlightMode.OFFBOARD:
-                print("-- Stopping offboard")
-                try:
-                    await drone.offboard.stop()
-                except OffboardError as error:
-                    print(f"Stopping offboard mode failed with error code: \
-                        {error._result.result}")
+                if type(model) == LandTask:
+                    current_flight_mode = None
+                    async for flight_mode in drone.telemetry.flight_mode():
+                        current_flight_mode = flight_mode
+                        break
 
-            await land(drone)
+                    if current_flight_mode != FlightMode.OFFBOARD:
+                        print("-- Stopping offboard")
+                        try:
+                            await drone.offboard.stop()
+                        except OffboardError as error:
+                            print(f"Stopping offboard mode failed with error code: \
+                                {error._result.result}")
 
-        if type(model) == WaitTask:
-            await wait(drone, model.wait_time)
+                    await land(drone)
 
-        if type(model) == SyncWaitTask:
-            await sync_wait(drone, model.wait_time)
+                if type(model) == WaitTask:
+                    await wait(drone, model.wait_time)
+
+                if type(model) == SyncWaitTask:
+                    await sync_wait(drone, model.wait_time)
 
 
 if __name__ == "__main__":
