@@ -6,24 +6,6 @@
         "heightInMeters": 3
     },
     {
-        "taskType": "SYNC_WAIT",
-        "taskMode": "SEQ",
-        "taskId": 5,
-        "waitTime": 5
-    },
-    {
-        "taskType": "WAIT",
-        "taskMode": "SEQ",
-        "taskId": 5,
-        "waitTime": 10
-    },
-    {
-        "taskType": "WAIT",
-        "taskMode": "SEQ",
-        "taskId": 5,
-        "waitTime": 10
-    },
-    {
         "taskType": "LAND",
         "taskMode": "NUT",
         "taskId": 4
